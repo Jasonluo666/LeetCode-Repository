@@ -2,26 +2,23 @@ class Solution(object):
     def sortColors(self, nums):
         """
         :type nums: List[int]
-        :rtype: void Do not return anything, modify nums in-place instead.
+        :rtype: None Do not return anything, modify nums in-place instead.
         """
         
-        if not nums:
-            return
+        left = right = 0
+        while right < len(nums):
+            if nums[right] == 0:
+                temp = nums[left]
+                nums[left] = nums[right]
+                nums[right] = temp
+                left += 1
+            right += 1
         
-        # set a pointer to record the first place to be swapped
-        # put 0 in order
-        empty_pos = 0
-        for index in range(len(nums)):
-            if nums[index] == 0:
-                temp = nums[empty_pos]
-                nums[empty_pos] = nums[index]
-                nums[index] = temp
-                empty_pos += 1
-        
-        # put 1 in order
-        for index in range(empty_pos, len(nums)):
-            if nums[index] == 1:
-                temp = nums[empty_pos]
-                nums[empty_pos] = nums[index]
-                nums[index] = temp
-                empty_pos += 1
+        right = left
+        while right < len(nums):
+            if nums[right] == 1:
+                temp = nums[left]
+                nums[left] = nums[right]
+                nums[right] = temp
+                left += 1
+            right += 1

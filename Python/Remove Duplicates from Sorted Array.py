@@ -1,20 +1,18 @@
-class Solution:
+class Solution(object):
     def removeDuplicates(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        
-        # replace the redundant elements with the unique ones
         if not nums:
             return 0
         
-        unique_element_index = 1
-        for index in range(1, len(nums)):
-            if nums[index] == nums[index - 1]:
-                continue
-            
-            nums[unique_element_index] = nums[index]
-            unique_element_index += 1
+        left = right = 0
+        while right < len(nums):
+            if nums[left] == nums[right]:
+                right += 1
+            else:
+                left += 1
+                nums[left] = nums[right]
         
-        return unique_element_index
+        return left + 1
