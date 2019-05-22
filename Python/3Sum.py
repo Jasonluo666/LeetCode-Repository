@@ -41,3 +41,33 @@ class Solution:
                     right -= 1
                 
         return ans
+
+        
+'''
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        
+        from collections import Counter
+        
+        counter = Counter(nums)
+        ans = {}
+        
+        for i in counter:
+            for j in counter:
+                k = -i - j
+                
+                if k in counter:
+                    if i == j:
+                        if (k == i and counter[i] >= 3) or (k != i and counter[i] >= 2):
+                            ans[tuple(sorted([i, j, k]))] = True
+                    else:
+                        if (k == i and counter[i] >= 2) or (k == j and counter[j] >= 2) or (k != i and k != j):
+                            ans[tuple(sorted([i, j, k]))] = True
+                            
+                            
+        return list(ans.keys())
+'''

@@ -1,19 +1,23 @@
-class Solution:
-    def plusOne(self, digits: List[int]) -> List[int]:
-        index = len(digits) - 1
-        carry = True
+class Solution(object):
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
         
-        while carry == True and index > -1:
-            carry = False
-            digits[index] += 1
+        index = len(digits) - 1
+        carry = 1
+        while index >= 0:
+            digits[index] += carry
+            carry = int(digits[index] / 10)
+            digits[index] %= 10
             
-            if digits[index] == 10:
-                digits[index] = 0
-                carry = True
+            if carry == 0:
+                break
             
             index -= 1
         
-        if carry == True:
-            digits = [1] + digits
+        if carry > 0:
+            digits = [carry] + digits
         
-        return digits
+        return digits    
