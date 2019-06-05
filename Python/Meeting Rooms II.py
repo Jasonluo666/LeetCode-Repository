@@ -1,26 +1,26 @@
 # Definition for an interval.
-# class Interval:
+# class Interval(object):
 #     def __init__(self, s=0, e=0):
 #         self.start = s
 #         self.end = e
 
-class Solution:
-    def minMeetingRooms(self, intervals: List[Interval]) -> int:
-        if not intervals:
-            return 0
+class Solution(object):
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[Interval]
+        :rtype: int
+        """
         
-        # simple greedy method
-        intervals = sorted(intervals, key=lambda x:x.start)
-        
+        sorted_intervals = sorted(intervals, key=lambda x:x[0])
         ans = []
-        for element in intervals:
+        for interval in sorted_intervals:
             index = 0
-            while index < len(ans) and ans[index] > element.start:
+            while index < len(ans):
+                if ans[index] <= interval[0]:
+                    ans[index] = interval[1]
+                    break
                 index += 1
             
             if index == len(ans):
-                ans.append(element.end)
-            else:
-                ans[index] = element.end
-        
+                ans.append(interval[1])
         return len(ans)
