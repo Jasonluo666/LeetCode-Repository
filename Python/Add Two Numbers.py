@@ -67,4 +67,40 @@ class Solution:
             point.next = ListNode(carry)
         
         return ans
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         
+        self.carry = 0
+        def recursive(l1, l2):
+            if l1 is None and l2 is None:
+                if self.carry == 0:
+                    return None
+                else:
+                    return ListNode(1)
+            
+            if l1 is None or l2 is None:
+                if l1 is None:
+                    node = ListNode(l2.val + self.carry)
+                    self.carry = int(node.val / 10)
+                    node.val %= 10
+                    node.next = recursive(l1, l2.next)
+                else:
+                    node = ListNode(l1.val + self.carry)
+                    self.carry = int(node.val / 10)
+                    node.val %= 10
+                    node.next = recursive(l1.next, l2)
+            else:
+                node = ListNode(l1.val + l2.val + self.carry)
+                self.carry = int(node.val / 10)
+                node.val %= 10
+                node.next = recursive(l1.next, l2.next)
+            return node
+        
+        return recursive(l1, l2)
